@@ -20,4 +20,11 @@ func main() {
 		log.Panic(err)
 	}
 	defer client.Close()
+
+	// save state with the key key1
+	err = client.SaveState(ctx, "statestore", "key1", data)
+	if err != nil {
+		log.Panic(err)
+	}
+	log.Println("data saved")
 }
