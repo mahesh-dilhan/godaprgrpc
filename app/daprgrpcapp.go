@@ -69,3 +69,22 @@ func (s *server) OnTopicEvent(ctx context.Context, in *pb.TopicEventRequest) (*p
 	fmt.Println("Topic message arrived")
 	return &pb.TopicEventResponse{}, nil
 }
+
+func main() {
+	// create listener
+	lis, err := net.Listen("tcp", ":50001")
+	if err != nil {
+		log.Fatalf("failed to listen: %v", err)
+	}
+
+	// create grpc server
+	s := grpc.NewServer()
+	pb.RegisterAppCallbackServer(s, &server{})
+
+	fmt.Println("Client starting...")
+
+	// and start...
+	if err := s.Serve(lis); err != nil {
+		log.Fatalf("failed to serve: %v", err)
+	}
+}
