@@ -3,11 +3,13 @@ package main
 import (
 	daprd "github.com/dapr/go-sdk/service/grpc"
 	"log"
+	"net"
 )
 
 func main() {
-	s, err := daprd.NewService(":50001")
+	list, err := net.Listen("tcp", "localhost:0")
 	if err != nil {
-		log.Fatalf("failed to start the server: %v", err)
+		log.Fatalf("gRPC listener creation failed: %s", err)
 	}
+	s := daprd.NewServiceWithListener(list)
 }
