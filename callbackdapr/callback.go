@@ -12,4 +12,8 @@ func main() {
 		log.Fatalf("gRPC listener creation failed: %s", err)
 	}
 	s := daprd.NewServiceWithListener(list)
+
+	if err := s.Start(); err != nil {
+		log.Fatalf("server error: %v", err)
+	}
 }
