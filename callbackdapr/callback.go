@@ -16,4 +16,12 @@ func main() {
 	if err := s.Start(); err != nil {
 		log.Fatalf("server error: %v", err)
 	}
+
+	sub := &common.Subscription{
+		PubsubName: "messages",
+		Topic:      "topic1",
+	}
+	if err := s.AddTopicEventHandler(sub, eventHandler); err != nil {
+		log.Fatalf("error adding topic subscription: %v", err)
+	}
 }
