@@ -25,3 +25,9 @@ func main() {
 		log.Fatalf("error adding topic subscription: %v", err)
 	}
 }
+
+func eventHandler(ctx context.Context, e *common.TopicEvent) (retry bool, err error) {
+	log.Printf("event - PubsubName:%s, Topic:%s, ID:%s, Data: %v", e.PubsubName, e.Topic, e.ID, e.Data)
+	// do something with the event
+	return true, nil
+}
