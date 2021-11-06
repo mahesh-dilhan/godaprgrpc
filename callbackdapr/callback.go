@@ -31,3 +31,14 @@ func eventHandler(ctx context.Context, e *common.TopicEvent) (retry bool, err er
 	// do something with the event
 	return true, nil
 }
+
+func echoHandler(ctx context.Context, in *common.InvocationEvent) (out *common.Content, err error) {
+	log.Printf("echo - ContentType:%s, Verb:%s, QueryString:%s, %+v", in.ContentType, in.Verb, in.QueryString, string(in.Data))
+	// do something with the invocation here
+	out = &common.Content{
+		Data:        in.Data,
+		ContentType: in.ContentType,
+		DataTypeURL: in.DataTypeURL,
+	}
+	return
+}
