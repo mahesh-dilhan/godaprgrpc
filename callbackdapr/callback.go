@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/dapr/go-sdk/service/common"
 	daprd "github.com/dapr/go-sdk/service/grpc"
 	"log"
 	"net"
@@ -41,4 +42,10 @@ func echoHandler(ctx context.Context, in *common.InvocationEvent) (out *common.C
 		DataTypeURL: in.DataTypeURL,
 	}
 	return
+}
+
+func runHandler(ctx context.Context, in *common.BindingEvent) (out []byte, err error) {
+	log.Printf("binding - Data:%v, Meta:%v", in.Data, in.Metadata)
+	// do something with the invocation here
+	return nil, nil
 }
